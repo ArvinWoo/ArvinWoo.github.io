@@ -278,6 +278,445 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-知识要点锦集" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a  href="/2017/07/17/知识要点锦集/" class="article-date">
+      <time datetime="2017-07-17T04:20:29.000Z" itemprop="datePublished">2017-07-17</time>
+</a>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a  class="article-title" href="/2017/07/17/知识要点锦集/">知识要点锦集</a>
+    </h1>
+  
+
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>富文本编辑器：UEditor（百度开发，腾讯在用）</p>
+<p>PowerDesigner:类图设计必须会</p>
+<p>FusionCharts图标采用SVG（可缩放矢量图形）实现，无需Flash，跨终端。高度自定义统计的图表，比JFreeChar（利用Flush有局限性）poi (5秒导出70万条数据)[策略：1、分页处理大数据]</p>
+<p>项目经理必须掌握 ：Axure RP Pro(用于系统原型设计)</p>
+<p>项目中为什么使用SSH：<br>    1、使用Struts:<br>        因为Struts是基于MVC模式的。很好的将应用程序进行分层，使开发者更关注业务逻辑的实现；Struts有着丰富的标签库，能够大大的提高开发者的效率。<br>    2、使用Hibernate:<br>        因为Hibernate为Java应用提供了一个易用的、高效的对象关系映射框架。Hibernate是个轻量级的持久性框架，功能丰富。<br>    3、使用Spring:<br>        因为Spring基于IoC(Inversion of Control,反向控制)和AOP架构多层J2EE系统框架。</p>
+<p>1、Mapper接口的创建：<br>    a.Mapper接口方法名和UserMapper.xml中定义的每个SQL的Id同名。</p>
+<pre><code>b.Mapper接口方法的输入参数类型和UserMapper.xml中定义的SQL的ResultType类型相同。
+
+c.Mapper接口的输出参数类型和UserMapper.xml中定义的SQL的resultType类型相同
+
+d.UserMapper.xml 文件中的namespace 即是Mapper接口的类路径。
+</code></pre><p>2、Bean的作用域：<br>    1)Singleton 相当于单例，在SpringIOC容器中只会存在一个共享的Bean实例。<br>    2)Prototype多例，这样的配置Spring不能对这个Bean的生命周期负责，容器在初始化之后，就不管了。<br>    3)Request，针对每一次HTTP请求都会产生新的Bean，仅对当前Session有效。<br>    4）Seesion，表示针对每一个次HTTP请求都会产生一个新的Bean，仅对当前的Seesion有效。</p>
+<p>3、SessionFactory<br>    SessionFactory实际上是起到了一个缓冲区的作用。它缓冲了Hibernate自动产生的SQL语句和其他的映射数据，还缓冲了可能重复利用的数据。为了能创建一个SessionFactory对象，应该在Hibernate初始化的时候创建一个Configuration类的实例。 并将已经写好的映射文件交给他处理，这样Configuration对象就可以创建一个SessionFactory对象，当SessionFactory对性爱那个创建成功之后Configuration对象就没用了，就可以简单的抛弃他SessionFactory用到了一个设计模式，工厂模式。用户程序从工程类SessionFactory取得Session实例。</p>
+<pre><code>只有第一次访问的时候才会创建。首先判断ThreadLocal中是否存在Session对象。如果不存在则创建Session对象，在创建Session对象时，首先判断系统是否已经加载过Configuration，如果没有SessonFactory 则需要先创建该对象 创建完成的Session对象需要保存在ThreadLoad中以供本次访问线程的下一次调用。在挂壁Session对象时，只需要从当前 的线程对象取得Session对象关闭该对象并且置空本地线程变量。
+</code></pre><p>4、事务传播的特性<br>    –什么是事务的传播特性?<br>    如果在你的Service层中这个方法。除了调用Dao层的方法之外。还调用了本类的其他的Service方法，那么在调用其他的Service方法的时候。这个事务怎么规定的呢？我们必须保证我们在方法调用的时候处在同一个事务中，否则如何保证食物的一致性？<br>    事务的传播就是解决这个问题的。这个配置项的意思是说当我们调用Service方法的时候开启一个事务</p>
+<pre><code>1）、REQUIRED：支持当前事务，如果没有事务，就新创建一个事务。
+2）、SUPPORTS：支持当前事务，如果没有事务，就以非事务的方式执行。
+3）、MANDATORY:支持当前的事务，如果没有事务，就抛出异常
+4）、REQUIRD_NEW:新建事务，如果当前存在事务，就把当前的事务挂起
+5）、NEVER：以非事务的方式执行，如果当前存在事务，则抛出异常。
+6）、NOT_SUPPORTED:以非事务的方式执行，如果当前存在事务，则把当前的事务挂起。
+7）NEWSTED:支持当前的事务，新增SAVEPOINT点，与当前事务同步提交或者回滚。嵌套。
+</code></pre><p>5、Spring事务的执行原理<br>    1、声明式事务：<br>        Spring的声明式事务管理是建立在AOP基础之上的。其本质是对方法前后进行拦截。然后目标方法开始之前创建或者加入一个事务，在执行之后根据执行情况提交或者回滚事务。声明式事务的最大有点就是不需要通过编程的方式管理事务。这样就不许要在业务逻辑代码中摻杂事务管理的代码。只需要在配置文件中做相关的事务规则的声明。（或者个通过等价的基于注解的方式），便可以将事务规则应用到业务逻辑中。</p>
+<p>6、Servlet线程安全吗？<br>    不安全，因为它采用多线程的方式运行其Service方法。</p>
+<p>###7、Mybatis传参数#和$的区别<br>        比如说用#{}和${}传参的区别：<br>        使用#传参是， SQL语句结息会加上<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from table where name = #&#123;name&#125;</div></pre></td></tr></table></figure></p>
+<pre><code>传入的Name为小李，那么最后打印出来的就是
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">select * from table where name = &apos;小李&apos;</div></pre></td></tr></table></figure>
+
+就是会当成字符串来解析，这样相比于$的好处就是比较明显，#{}传参能防止SQL注入，如果你传入的参数为&apos;单引号&apos;，那么如果使用${}这种方式是会报错的、
+另一种使用场景是，如果你要做动态的排序。比如Order　By　Column　这个时候事务必须要用${}因为如果你使用了#{}，那么打印出来的将会是：
+```
+select * from table order by &apos;name&apos; 这样是没用的
+</code></pre><p>目前来看，能用#就不要用$,<br>mybatis中的#和$的区别</p>
+<ol>
+<li>#将传入的数据都当成一个字符串，会对自动传入的数据加一个双引号。如：order by #user_id#，如果传入的值是111,那么解析成sql时的值为order by “111”, 如果传入的值是id，则解析成的sql为order by “id”.</li>
+<li>$将传入的数据直接显示生成在sql中。如：order by $user_id$，如果传入的值是111,那么解析成sql时的值为order by user_id, 如果传入的值是id，则解析成的sql为order by id.</li>
+<li>#方式能够很大程度防止sql注入。　<br>4.$方式无法防止Sql注入。<br>5.$方式一般用于传入数据库对象，例如传入表名.　<br>6.一般能用#的就别用$.<br>MyBatis排序时使用order by 动态参数时需要注意，用$而不是#<br>字符串替换<br>默认情况下，使用#{}格式的语法会导致MyBatis创建预处理语句属性并以它为背景设置安全的值（比如?）。这样做很安全，很迅速也是首选做法，有时你只是想直接在SQL语句中插入一个不改变的字符串。比如，像ORDER BY，你可以这样来使用：<br>ORDER BY ${columnName}<br>这里MyBatis不会修改或转义字符串。<br>重要：接受从用户输出的内容并提供给语句中不变的字符串，这样做是不安全的。这会导致潜在的SQL注入攻击，因此你不应该允许用户输入这些字段，或者通常自行转义并检查。<br>Mybatis中$和#的区别简单小结<br>前不久，有人来我们公司面试，我们的经理问道了这个问题，我也是一知半解，所以就去百度了一番。<br>其实区别很简单的，举个例子大家就会明白的。写一句SQL-例如：select <em> from user_role where user_code = “100”;<br>这句话而言，需要写成 select </em> from ${tableName} where user_code = #{userCode}<br>所以，$符是直接拼成sql的 ，#符则会以字符串的形式 与sql进行拼接。</li>
+</ol>
+<p>9、JVM虚拟机<br>        每个JVM都有两种机制：<br>            1、类装载子系统：装载具有适合名称的类或接口<br>            2、执行引擎：负责执行包含在已装载的类或接口中的指令<br>        每个JVM都包含：<br>            方法区、java堆、java栈、本地方法栈、指令计数器以及其他隐含的寄存器</p>
+<pre><code>    1、java代码编译和执行的过程
+        1）java代码的编译是由java源代码编译器来完成的。也就是java代码到jvm字节码的过程
+        2）java字节码的执行是由jvm的执行引擎来完成的
+        编译执行的整个过程包括三个重要的机制
+            1、java源码编译机制(源码编译由以下三个部分组成)
+                1）分析和输入到符号表
+                2）注解处理
+                3）语义分析和生产class文件（结构信息、元数据、方法信息）
+            2、类加载机制
+                JVM类加载是通过ClassLoader以及其子类来完成的
+                子类有：Bootrap ClassLoader、Extension ClassLoader、App ClassLoader、Custom ClassLoader
+                加载的过程是先检查类是否被加载，保证我们的类只被ClassLoader加载一次
+            3、类执行机制
+                JVM是基于堆栈的虚拟机。JVM会为每一个新创建的线程分配一个堆栈，也就是说对java程序来，就是对这些堆栈的操作来完成的。堆栈以帧为单位来保存线程状态。JVM对堆栈只有两种操作：以帧为单位的压栈和出栈。
+                JVM在执行Class字节码，线程被创建，都会产生一个程序计数器和栈，程序计数器就会存放下一条要执行的指令在方法中的偏移量，栈中呢就会存放一个个栈帧，每一个栈帧存放着每一次方法的调用，而栈帧又是由局部变量区和操作数栈两部分组成的，局部变量区用于存放方法的局部变量和参数，操作数栈则用于存放方法执行产生的中间结果
+    2、JVM的内存管理和垃圾回收机制
+        JVM的内存分为：方法区、栈内存、堆内存、本地方法栈、
+            基础数据类型直接在栈空间分配，方法形式的参数，直接在栈空间分配，当方法调用完成后从栈空间回收。引用数据的类型，需要用new关键字来创建，既在栈空间分配一个地址空间，也要在堆空间分配对象的类变量。方法的引用参数，在栈空间分配一个地址空间，并指向堆空间的对象区，当方法调用完成后从栈空间回收。局部变量new创建后在栈和堆中分配空间，局部变量生命周期结束后，栈空间立即被回收，堆空间等待GC回收。字符串常量、static在DATA区域分配，this在堆空间分配。数组在栈空间分配数组名称，在堆空间分配数组实际大小
+
+        垃圾回收机制
+            堆里聚集了所有有程序创建的对象，JVM也有相应的指令比如 new, newarray, anewarray和multianewarray。java所有的释放都由GC来做，GC除了回收内存之外。另外一个重要的工作就是内存的压缩。
+
+10、sql优化
+</code></pre><p>昂恪面试总结：</p>
+<pre><code>1、你在第一个项目中扮演的角色和你主要负责的功能模板，独立完成的功能模板是哪些
+2、在线支付这个模板花了多长时间完成
+3、在做在线支付模板的时候你遇到了哪些问题 
+4、贸易这个系统是做了多久精确的到几月份。
+5、后勤管理主要有哪些模板
+
+这之前都是关于所写项目
+
+6、你对哪个框架比较熟悉
+    struts2：
+    工作原理：
+        1）：浏览器初始化一个指向Servlet容器（例如Tomcat）的请求            2）：这个请求经过一系列的过滤器（Filter）（这些过滤器中有一个叫做ActionContextCleanUp的可选过滤器，这个过滤器对于Struts2和其他框架的集成很有帮助，例如：SiteMesh Plugin）
+        3）：接着FilterDispatcher被调用，FilterDispatcher询问ActionMapper来决定这个请是否需要调用某个Action FilterDispatcher是控制器的核心，就是mvc中c控制层的核心。
+        4):如果ActionMapper决定需要调用某个Action，FilterDispatcher把请求的处理交给ActionProxy
+        5）：ActionProxy通过ConfigurationManager询问框架的配置文件struts.xml，找到需要调用的Action类 ,这里，我们一般是从struts.xml配置中读取。
+        6）：ActionProxy创建一个ActionInvocation的实例。
+        7）：ActionInvocation实例使用命名模式来调用，在调用Action的过程前后，涉及到相关拦截器（Intercepter）的调用。
+        在调用action之前需要经过一系列的interceptor（有自己创建的，也有默认的default）
+            1.ActionInvocation初始化时，根据配置，加载Action相关的所有Interceptor。
+            2.通过ActionInvocation.invoke方法调用Action实现时，执行Interceptor。                Interceptor将很多功能从我们的Action中独立出来，大量减少了我们Action的代码，独立出来的行为具有很好的重用性。XWork、WebWork的许多功能都是有Interceptor实现，可以在配置文件中组装Action用到的Interceptor，它会按照你指定的顺序，在Action执行前后运行。
+        8）：一旦Action执行完毕，ActionInvocation负责根据struts.xml中的配置找到对应的返回结果。返回结果通常是（但不总是，也可能是另外的一个Action链）一个需要被表示的JSP或者FreeMarker的模版。在表示的过程中可以使用Struts2 框架中继承的标签。在这个过程中需要涉及到ActionMapper
+        9）：再一次执行interceptor
+        10）：HTTPServlectResponse响应到浏览器（当然也要通过Filter）
+    核心思想：struts2基于MVC模式的框架，他也体现了MVC的设计思想，主要是把程序分为model、veiw、controller。他的核心是FilterDispatcher
+    Spring：
+        工作原理：
+            1.springmvc请所有的请求都提交给DispatcherServlet,它会委托应用系统的其他模块负责对请求进行真正的处理工作。
+            2.DispatcherServlet查询一个或多个HandlerMapping,找到处理请求的Controller.
+            3.DispatcherServlet请请求提交到目标Controller?
+            4.Controller进行业务逻辑处理后，会返回一个ModelAndView?
+            5.Dispathcher查询一个或多个ViewResolver视图解析器,找到ModelAndView对象指定的视图对象
+            6.视图对象负责渲染返回给客户端。
+        核心思想：
+            控制反转Ioc//Inversion of Control和依赖注射DI//Dependency Injection  
+            ioc：
+                以前我们需要用到哪个类时，我们需要在程序中去使用关键字new一个出来
+                而spring呢，程序告诉spring我需要这个类，你spring要给我提供这个类的实例。
+                这就是控制反转。也是就说实例化一个的控制权交给了我们的spring容器
+            di：在我们告诉spring我们需要这个类，你必须要给我们提供这个类的实例。然后spring就实例化一个类注入给我们的程序。
+                所谓依赖注入，即组件之间的依赖关系由容器在运行期决定，形象的来说，即由容器动态的将某种依赖关系注入到组件之中。
+            bean的封装机制：
+                Spring大量引入了Java的Reflection机制，通过动态调用的方式避免硬编码方式的约束，并在此基础上建立了其核心组件BeanFactory，以此作为其依赖注入机制的实现基础    org.springframework.beans包中包括了这些核心组件的实现类，核心中的核心为BeanWrapper和BeanFactory类。这两个类从技术角度而言并不复杂，但对于Spring 框架而言，却是关键所在，如果有时间，建议对其源码进行研读，必有所获。
+                对于我们而言，我们使用Spring框架所做的就是两件事：开发Bean、配置Bean。对于Spring矿建来说，它要做的就是根据配置文件来创建Bean实例，并调用Bean实例的方法完成“依赖注入”。
+    Hibernate：
+        工作原理：
+            1.通过Configuration().configure();读取并解析hibernate.cfg.xml配置文件
+            2.由hibernate.cfg.xml中的&lt;mapping?resource=&quot;com/xx/User.hbm.xml&quot;/&gt;读取并解析映射信息?
+            3.通过config.buildSessionFactory();//创建SessionFactory
+            4.sessionFactory.openSession();//打开Sesssion
+            5.session.beginTransaction();//创建事务Transation?
+            6.persistent?operate持久化操作
+            7.session.getTransaction().commit();//提交事务
+            8.关闭Session?
+            9.关闭SesstionFactory
+        核心思想：
+             hibernate是一个采用ORM（Object/Relation Mapping对象关系映射）机制持久层的开源框架
+             其主要核心思想是面向对象，而非面向过程，而这个面向对象则主要通过ORM实现。
+             ORM是将表与表之间的操作，映射成对象和对象之间的操作，就是通过操作实体类来达到操作表的目的。从数据库提取的数据会自动按你设置的映射要求封装成特定的对象。之后你就可以通过对对象进行操作来修改数据库中的数据。这时候你面对的不是信息的碎片，而是一个形象鲜明的对象。                 
+             最简单的情况下，hibernate把数据表的数据段映射到类的属性上，那么这个数据表的定义本身就对应于一个类的定义，而每一个数据行将映射成该类的一个对象。                 
+             所以hibernate就是通过将数据表和实体类之间的映射，使得对对象的修改对应数据行的修改，不用考虑关系型的数据库表，使得程序思考角度完全对象化，更符合面向对象思维，同时也简化了持久层的代码，使逻辑结构更清晰。
+
+    myBatis：
+        工作原理：
+            1、首先的加载mybatis的配置文件
+            2、SqlSessionFactory(会话工厂)，根据配置文件创建工厂作用：创建Sqlsession
+            3、SqlSession(会话)，是一个接口，面向用户（程序员）的接口作用：操作数据库（发出sql增、删、改、查）
+            4、mapped?statement（底层封装对象）作用：对操作数据库存储封装，包括sql语句数据参数输出结果类型
+        核心思想：
+            MyBatis的核心思想就是为了简化开发人员在编写和数据库打交道的时候的持久化的复杂的操作。其工作流程我们先不深究，就看看它实现的功能吧。那我们其实可以类比自己写的代码。我们实现和数据库打交道的操作不就是连接数据库，创建相关的JavaBean对象，然后使用DAO层的语法，借助于Service层的桥接功能实现了最终的交互的吗？其实MyBatis的工作也是这样的，只不过它被封装好了而已，我们只需要按照它规定的步骤就可以完成同样的工作，而且可以大大的减轻开发人员的劳动，减轻负担。
+
+7、strut 1与2的区别，strut2的核心思想是什么
+    区别不用谈，其他的见上一题
+8、struts2是如何进行封装的，业务封装
+    struts2对数据的封装
+        要完成数据的赋值，有很大程度上，Struts2要依赖于ValueStack对象。这个对象贯穿整个Action的生命周期（每个Action类的对象实例会拥有一个ValueStack对象）。当Struts2接收到一个.action的请求后，会先建立Action类的对象实例，但并不会调用Action方法，而是先将Action类的相应属性放到 ValueStack对象的顶层节点（ValueStack对象相当于一个栈）。只是所有的属性值都是默认的值，如String类型的属性值为 null，int类型的属性值为0等。
+
+9、对一个自己不熟的框架是怎么对自己定位的
+    ....
+10、servlet的工作原理
+    1、Servlet容器启动时：读取web.xml配置文件中的信息，构造指定的Servlet对象，创建ServletConfig对象，同时将ServletConfig对象作为参数来调用Servlet对象的init方法。
+    2、在Servlet容器启动后：客户首次向Servlet发出请求，Servlet容器会判断内存中是否存在指定的Servlet对象，如果没有则创建它，然后根据客户的请求创建HttpRequest、HttpResponse对象，从而调用Servlet 对象的service方法。
+    3、Servlet容器在启动时自动创建Servlet，这是由在web.xml文件中为Servlet设置的&lt;load-on-startup&gt;属性决定的。从中我们也能看到同一个类型的Servlet对象在Servlet容器中以单例的形式存在。
+     &lt;load-on-startup&gt;1&lt;/load-on-startup&gt; 
+     容器启动的时候就初始化
+
+    1、当客户端浏览器向服务器请求一个 Servlet 时，服务器收到该请求后，首先到容器中检索与请求匹配的 Servlet 实例是否已经存在。
+
+    2、--若不存在，则 Servlet 容器负责加载并实例化出该类 Servlet的一个实例对象，接着容器框架负责调用该实例的 init() 方法来对实例做一些初始化工作，然后Servlet 容器运行该实例的 service() 方法。
+
+    --若 Servlet 实例已经存在，则容器框架直接调用该实例的 service() 方法。
+    3、service() 方法在运行时，自动派遣运行与用户请求相对应的 doXX() 方法来响应用户发起的请求。
+
+    通常，每个 Servlet 类在容器中只存在一个实例，每当请求到来时，则分配一条线程来处理该请求。
+
+10、(附1)jsp的工作原理
+    1、当客户端浏览器向服务器请求一个 JSP 页面时，服务器收到该请求后，首先检查所请求的这个JSP 文件内容 ( 代码 ) 是否已经被更新，或者是否是 JSP 文件创建后的第一次被访问：
+    2、--如果是，那么，这个 JSP 文件就会在服务器端的 JSP 引擎作用下转化为一个 Servlet 类的 Java 源代码文件。紧接着，这个 Servlet 类会在 Java 编译器的作用下被编译成一个字节码文件，并装载到 jvm 解释执行。剩下的就等同于 Servlet 的处理过程了。
+    3、--如果被请求的 JSP 文件内容 ( 代码 ) 没有被修改，那么它的处理过程也等同于一个 Servlet 的处理过程。即直接由服务器检索出与之对应的 Servlet 实例来处理。
+    需要注意的是，JSP 文件不是在服务器启动的时候转换成 Servlet 类的。而是在被客户端访问的时候才可能发生转换的 ( 如 JSP 文件内容没有被更新等，就不再发生 Servlet 转换 )。
+10、(附2)Servlet与Jsp
+    1、JSP 本质是一个 Servlet，它的运行也需要容器的支持。
+    2、在 JSP 和 Servlet 文件中都可以编写 Java 和 HTML 代码，不同的是，Servlet 虽然也可以动态的生成页面内容，但更加偏向于逻辑的控制。
+    3、JSP 最终被转换成 Servlet 在 jvm 中解释执行，在 JSP 中虽然也可以编写 Java 代码，但它更加偏向于页面视图的展现
+11、json数据的格式
+12、系统的ide、前端还是后台，后台与前台通信使用的什么（都应该是ws    
+</code></pre><p>高斯贝尔：<br>    1、缓存机制（各类缓存）<br>        二级缓存适合放的对象（经常被访问、改动不大、数量有限）<br>        缓存的范围：<br>            1、事务范围(单session，一级缓存)<br>                只能被当前事务访问，缓存的生命周期依赖于事务的生命周期<br>            2、进程范围（单sessionFactory，二级缓存）<br>                可以被应用内所有的事务共享，缓存的生命周期依赖于应用程序的生命周期<br>            3、集群范围<br>                集群环境的意思是，有多个服务器共同对外服务。每个服务器上都有缓存。集群缓存涉及到服务器之间的同步。如果某一个服务器挡掉了，它需要把另一个服务器的内容接收过来。这样的话ehcache、oscache是不能用的，是因为它内部没有独一无二的id来唯一标识一个对象。其他三种是uuid可以唯一标识<br>        二级缓存是如何工作的<br>            hibernate的二级缓存同一级缓存一样，都是针对对象ID来进行缓存的，二级缓存的作用范围是针对根据ID获得对象的查询<br>                1、在执行各种条件查询时，如果所获得的结果集为实体对象的集合，那么就会把所有的数据对象根据ID放入到二级缓存中<br>                2、当Hibernate根据ID访问数据对象的时候，首先会从Session一级缓存中查找，如果查不到并且配置了二级缓存，那么会从二级缓存中查找，如果还查不到，就会查询数据库，把结果按照ID放入到缓存中。<br>                3、删除、更新、增加数据的时候，同时更新缓存。<br>    1.1数据并发与性能的平衡<br>        hibeinate里有四种事务并发状态：read_uncommited、readConmmited、norepeated、serialize<br>        悲观锁与乐观锁使用的前提是事务隔离级别是readCommited<br>        悲观锁是数据库加锁<br>        而乐观锁是程序加锁<br>        一般设置为readConmmited再利用悲观锁与乐观锁来解决不可重复读的问题<br>        悲观锁设置User user1 = session1.get(User.class, 1,LockOptions.UPGRADE);<br>        乐观锁在数据库里表里加一个版本号的字段。每次更新的时候检查版本号是否变化<br>        在版本号的字段上加@version注解说明这是一个版本号，其锁机制是数据库自己实现<br>    2、HTTP通信协议包括HTTP里的所有内容<br>        特点：<br>            1、支持客户/服务器模式<br>            2、简单快速：只需要传送请求方法和路径<br>            3、灵活：允许传输任何的数据对象，用content-type来标识数据类型<br>            4、无连接：限制每一次链接只能处理一个请求。服务器处理完请求并接收客户端的应答后就断开连接。采用这种方式可以节省传输时间<br>            5、无状态：http协议是无状态协议。缺少状态就意味着，如果后续的处理需要前面的信息，则必须重新传数据，这样可能导致每次传输的数据量较大。而另一方面<br>                        如果服务器不需要前面的信息它的应答比较快<br>        http请求由三部分组成：请求头、消息报头、请求正文<br>        http响应也是由三部分组成的：状态行、消息报头、响应正文<br>        状态：<br>            1xx：指示信息–表示请求已接收，继续处理<br>            2xx：成功–表示请求已被成功接收、理解、接受<br>            3xx：重定向–要完成请求必须进行更进一步的操作<br>            4xx：客户端错误–请求有语法错误或请求无法实现<br>            5xx：服务器端错误–服务器未能实现合法的请求<br>        消息报头：<br>            HTTP消息由客户端到服务器的请求和服务器到客户端的响应组成。<br>            HTTP消息报头包括普通报头、请求报头、响应报头、实体报头。<br>                请求报头：请求报头允许客户端向服务器端传递请求的附加信息以及客户端自身的信息。<br>                    Accept请求报头域用于指定客户端接受哪些类型的信息<br>                    Accept-Charset请求报头域用于指定客户端接受的字符集<br>                    Accept-Encoding请求报头域类似于Accept，但是它是用于指定可接受的内容编码<br>                    Accept-Language请求报头域类似于Accept，但是它是用于指定一种自然语言<br>                    Authorization请求报头域主要用于证明客户端有权查看某个资源<br>                    Host请求报头域主要用于指定被请求资源的Internet主机和端口号<br>                    cache-control、cookie、X-Requested-With<br>                    User-Agent<br>                响应报头：响应报头允许服务器传递不能放在状态行中的附加响应信息，以及关于服务器的信息和对Request-URI所标识的资源进行下一步访问的信息。<br>                    Content-Type、Date、Content-Length等等<br>                实体报头：请求和响应消息都可以传送一个实体。一个实体由实体报头域和实体正文组成，但并不是说实体报头域和实体正文要在一起发送，可以只发送实体报头域</p>
+<pre><code>3、网络通信编程Socket
+4、并发处理
+    在面对大量用户访问、高并发请求方面基本的解决方案集中在这样几个环节：
+        使用高性能的服务器、高性能的数据库、高效率的编程语言、高性能的web容器
+    低成本、高性能、搞扩展行的角度解决：
+        1、HTML静态化
+            尽可能是我们的网页使用静态HTML。
+            但是对于大量内容并且频繁更新，我们就无法手动的挨个实现了，这是我们就采用信息发布系统CMS，CMS可以实现最简单的信息录入自动生成静态页面
+            有更新的时候再重新静态化也是大量使用的策略
+            HTML静态化页面也是某些缓存策略的使用的手段，对系统中平凡使用的数据，但是内容跟新很小的应用，可以考虑使用HTML静态页面来实现
+        2、图片服务器分离
+            对于web服务器来说图片是最消耗资源的，于是我们有必要对图片和页面进行分离。设立单独的图片服务器，这样的架构可以降低提供页面访问请求的服务器系统压
+            力，并且可以保证服务器不会因为图片的问题而崩溃
+        3、数据库集群和数据库散列
+            在面对大量访问的时候，数据库的瓶颈很快就显现出来了，这时候一台数据库很快就不能满足要求了，这是我们就需要使用数据库集群或数据库散列
+            考虑到成本和数据库本身的限制，我们使用应用程序来改善系统架构，库表散列是常用并且最有效的解决方案，我们在应用程序中使用安装业务和应用或功能模块
+            将数据库进行分离，不同的模块对应不同的数据库或表，在按照一定的策略对某个页面或者功能进行数据库的散列
+        4、缓存
+            架构方面的缓存，对Apache比较熟悉的人都能知道Apache提供了自己的缓存模块，也可以使用外加的Squid模块进行缓存，这两种方式均可以有效的提高Apache的访
+            问响应能力。
+        5、镜像
+            镜像是大型网站常采用的提高性能和数据安全性的方式，镜像的技术可以解决不同网络接入商和地域带来的用户访问速度差异。
+        6、负载均衡
+            负载均衡将是大型网站解决高负荷访问和大量并发请求采用的终极解决办法。
+            有很多产品可以选择，这里介绍两种
+            1）硬件四层交换
+                第四层交换使用第三层和第四层信息包的报头信息，根据应用区间识别业务流，将整个区间段的业务流分配到合适的应用服务器进行处理。第四层交换功能就
+                象是虚IP，指向物理服务器。它传输的业务服从的协议多种多样，有HTTP、FTP、NFS、Telnet或其他协议。这些业务在物理服务器基础上，需要复杂的载量平
+                衡算法。
+            2）软件四层交换
+    今天讲的如何处理并发和同同步问题主要是通过锁机制。
+
+   我们需要明白，锁机制有两个层面。
+
+   一种是代码层次上的，如java中的同步锁，典型的就是同步关键字synchronized，这里我不在做过多的讲解，
+
+   感兴趣的可以参考:http://www.cnblogs.com/xiohao/p/4151408.html
+
+   另外一种是数据库层次上的，比较典型的就是悲观锁和乐观锁。这里我们重点讲解的就是悲观锁（传统的物理锁）和乐观锁。
+
+   悲观锁(Pessimistic Locking):       
+
+   悲观锁，正如其名，它指的是对数据被外界（包括本系统当前的其他事务，以及来自 外部系统的事务处理）修改持保守态度，因此，
+
+   在整个数据处理过程中，将数据处于锁定状态。
+
+   悲观锁的实现，往往依靠数据库提供的锁机制（也只有数据库层提供的锁机制才能 真正保证数据访问的排他性，否则，即使在本系统
+
+   中实现了加锁机制，也无法保证外部系 统不会修改数据）。 
+
+   一个典型的倚赖数据库的悲观锁调用： 
+
+   select * from account where name=”Erica” for update
+
+   这条 sql 语句锁定了 account 表中所有符合检索条件（ name=”Erica” ）的记录。
+
+   本次事务提交之前（事务提交时会释放事务过程中的锁），外界无法修改这些记录。 
+   Hibernate 的悲观锁，也是基于数据库的锁机制实现。 
+   下面的代码实现了对查询记录的加锁：
+
+   String hqlStr =&quot;from TUser as user where user.name=&apos;Erica&apos;&quot;;
+
+    Query query = session.createQuery(hqlStr);
+
+    query.setLockMode(&quot;user&quot;,LockMode.UPGRADE); // 加锁
+
+   List userList = query.list();// 执行查询，获取数据
+
+   query.setLockMode 对查询语句中，特定别名所对应的记录进行加锁（我们为 TUser 类指定了一个别名 “user” ），这里也就是对
+
+  返回的所有 user 记录进行加锁。 
+
+  观察运行期 Hibernate 生成的 SQL 语句： 
+  select tuser0_.id as id, tuser0_.name as name, tuser0_.group_id
+  as group_id, tuser0_.user_type as user_type, tuser0_.sex as sex
+  from t_user tuser0_ where (tuser0_.name=&apos;Erica&apos; ) for update
+ 这里 Hibernate 通过使用数据库的 for update 子句实现了悲观锁机制。 
+  Hibernate 的加锁模式有： 
+  ? LockMode.NONE ： 无锁机制。 
+  ? LockMode.WRITE ： Hibernate 在 Insert 和 Update 记录的时候会自动获取
+  ? LockMode.READ ： Hibernate 在读取记录的时候会自动获取。 
+  以上这三种锁机制一般由 Hibernate 内部使用，如 Hibernate 为了保证 Update
+  过程中对象不会被外界修改，会在 save 方法实现中自动为目标对象加上 WRITE 锁。 
+  ? LockMode.UPGRADE ：利用数据库的 for update 子句加锁。 
+  ? LockMode. UPGRADE_NOWAIT ： Oracle 的特定实现，利用 Oracle 的 for
+  update nowait 子句实现加锁。 
+  上面这两种锁机制是我们在应用层较为常用的，加锁一般通过以下方法实现： 
+  Criteria.setLockMode
+  Query.setLockMode
+  Session.lock
+  注意，只有在查询开始之前（也就是 Hiberate 生成 SQL 之前）设定加锁，才会 
+  真正通过数据库的锁机制进行加锁处理，否则，数据已经通过不包含 for update
+  子句的 Select SQL 加载进来，所谓数据库加锁也就无从谈起。
+
+     乐观锁(Optimistic Locking):        
+     相对悲观锁而言，乐观锁机制采取了更加宽松的加锁机制。悲观锁大多数情况下依 靠数据库的锁机制实现，以保证操作最大程度的独占性。但随之
+</code></pre><p>而来的就是数据库 性能的大量开销，特别是对长事务而言，这样的开销往往无法承受。 如一个金融系统，当某个操作员读取用户的数据，并在读出的用户数</p>
+<p>据的基础上进 行修改时（如更改用户帐户余额），如果采用悲观锁机制，也就意味着整个操作过 程中（从操作员读出数据、开始修改直至提交修改结果的全</p>
+<p>过程，甚至还包括操作 员中途去煮咖啡的时间），数据库记录始终处于加锁状态，可以想见，如果面对几 百上千个并发，这样的情况将导致怎样的后果。 乐</p>
+<p>观锁机制在一定程度上解决了这个问题。</p>
+<pre><code>乐观锁，大多是基于数据版本   Version ）记录机制实现。何谓数据版本？即为数据增加一个版本标识，在基于数据库表的版本解决方案中，一般是通
+</code></pre><p>过为数据库表增加一个 “version” 字段来 实现。 读取出数据时，将此版本号一同读出，之后更新时，对此版本号加一。此时，将提 交数据的版本数据与数据</p>
+<p>库表对应记录的当前版本信息进行比对，如果提交的数据 版本号大于数据库表当前版本号，则予以更新，否则认为是过期数据。对于上面修改用户帐户信息</p>
+<p>的例子而言，假设数据库中帐户信息表中有一个 version 字段，当前值为 1 ；而当前帐户余额字段（ balance ）为 $100 。操作员 A 此时将其读出</p>
+<p>（ version=1 ），并从其帐户余额中扣除 $50（ $100-$50 ）。 2 在操作员 A 操作的过程中，操作员 B 也读入此用户信息（ version=1 ），并 从其帐</p>
+<p>户余额中扣除 $20 （ $100-$20 ）。 3 操作员 A 完成了修改工作，将数据版本号加一（ version=2 ），连同帐户扣 除后余额（ balance=$50 ），提交</p>
+<p>至数据库更新，此时由于提交数据版本大 于数据库记录当前版本，数据被更新，数据库记录 version 更新为 2 。 4 操作员 B 完成了操作，也将版本号加一</p>
+<p>（ version=2 ）试图向数据库提交数 据（ balance=$80 ），但此时比对数据库记录版本时发现，操作员 B 提交的 数据版本号为 2 ，数据库记录当前版</p>
+<p>本也为 2 ，不满足 “ 提交版本必须大于记 录当前版本才能执行更新 “ 的乐观锁策略，因此，操作员 B 的提交被驳回。 这样，就避免了操作员 B 用基于</p>
+<p>version=1 的旧数据修改的结果覆盖操作 员 A 的操作结果的可能。 从上面的例子可以看出，乐观锁机制避免了长事务中的数据库加锁开销（操作员 A</p>
+<p>和操作员 B 操作过程中，都没有对数据库数据加锁），大大提升了大并发量下的系 统整体性能表现。 需要注意的是，乐观锁机制往往基于系统中的数据存储</p>
+<p>逻辑，因此也具备一定的局 限性，如在上例中，由于乐观锁机制是在我们的系统中实现，来自外部系统的用户 余额更新操作不受我们系统的控制，因此可能</p>
+<p>会造成脏数据被更新到数据库中。在 系统设计阶段，我们应该充分考虑到这些情况出现的可能性，并进行相应调整（如 将乐观锁策略在数据库存储过程中实</p>
+<p>现，对外只开放基于此存储过程的数据更新途 径，而不是将数据库表直接对外公开）。 Hibernate 在其数据访问引擎中内置了乐观锁实现。如果不用考虑外</p>
+<p>部系统对数 据库的更新操作，利用 Hibernate 提供的透明化乐观锁实现，将大大提升我们的 生产力。</p>
+<pre><code>    3、常见并发同步案例分析
+
+案例一:订票系统案例，某航班只有一张机票，假定有1w个人打开你的网站来订票，问你如何解决并发问题(可扩展到任何高并发网站要考虑
+
+           的并发读写问题)
+
+问题，1w个人来访问，票没出去前要保证大家都能看到有票，不可能一个人在看到票的时候别人就不能看了。到底谁能抢到，那得看这个人的“运气”（网
+
+         络快慢等）
+</code></pre><p>其次考虑的问题，并发，1w个人同时点击购买，到底谁能成交？总共只有一张票。</p>
+<p>首先我们容易想到和并发相关的几个方案 ：</p>
+<p>锁同步同步更多指的是应用程序的层面，多个线程进来，只能一个一个的访问，java中指的是syncrinized关键字。锁也有2个层面，一个是java中谈到的对</p>
+<p>象锁，用于线程同步；另外一个层面是数据库的锁；如果是分布式的系统，显然只能利用数据库端的锁来实现。</p>
+<p>假定我们采用了同步机制或者数据库物理锁机制，如何保证1w个人还能同时看到有票，显然会牺牲性能，在高并发网站中是不可取的。使用hibernate后我们</p>
+<p>提出了另外一个概念：乐观锁、悲观锁（即传统的物理锁）；</p>
+<p>采用乐观锁即可解决此问题。乐观锁意思是不锁定表的情况下，利用业务的控制来解决并发问题，这样即保证数据的并发可读性又保证保存数据的排他性，保</p>
+<p>证性能的同时解决了并发带来的脏数据问题。</p>
+<p>hibernate中如何实现乐观锁：</p>
+<p>前提：在现有表当中增加一个冗余字段，version版本号, long类型</p>
+<p>原理：</p>
+<p>1）只有当前版本号》=数据库表版本号，才能提交</p>
+<p>2）提交成功后，版本号version ++</p>
+<p>实现很简单：在ormapping增加一属性optimistic-lock=”version”即可，以下是样例片段</p>
+<hibernate-mapping>
+
+<class name="com.insigma.stock.ABC" optimistic-lock="version" table="T_Stock" schema="STOCK">
+
+<p>案例二、股票交易系统、银行系统，大数据量你是如何考虑的</p>
+<p>首先，股票交易系统的行情表，每几秒钟就有一个行情记录产生，一天下来就有（假定行情3秒一个） 股票数量×20×60*6 条记录，一月下来这个表记录数</p>
+<p>量多大？ oracle中一张表的记录数超过100w后 查询性能就很差了，如何保证系统性能？</p>
+<p>再比如，中国移动有上亿的用户量，表如何设计？把所有用于存在于一个表么？</p>
+<p>所以，大数量的系统，必须考虑表拆分-（表名字不一样，但是结构完全一样），通用的几种方式：（视情况而定）</p>
+<p>1）按业务分，比如 手机号的表，我们可以考虑 130开头的作为一个表，131开头的另外一张表 以此类推</p>
+<p>2）利用oracle的表拆分机制做分表</p>
+<p>3）如果是交易系统，我们可以考虑按时间轴拆分，当日数据一个表，历史数据弄到其它表。这里历史数据的报表和查询不会影响当日交易。</p>
+<p>当然，表拆分后我们的应用得做相应的适配。单纯的or-mapping也许就得改动了。比如部分业务得通过存储过程等</p>
+<p>此外，我们还得考虑缓存</p>
+<p>这里的缓存，指的不仅仅是hibernate，hibernate本身提供了一级二级缓存。这里的缓存独立于应用，依然是内存的读取，假如我们能减少数据库频繁的访</p>
+<p>问，那对系统肯定大大有利的。比如一个电子商务系统的商品搜索，如果某个关键字的商品经常被搜，那就可以考虑这部分商品列表存放到缓存（内存中</p>
+<p>去），这样不用每次访问数据库，性能大大增加。</p>
+<p>简单的缓存大家可以理解为自己做一个hashmap，把常访问的数据做一个key，value是第一次从数据库搜索出来的值，下次访问就可以从map里读取，而不</p>
+<p>读数据库；专业些的目前有独立的缓存框架比如memcached 等，可独立部署成一个缓存服务器。</p>
+<pre><code>   4、常见的提高高并发下访问的效率的手段
+
+ 首先要了解高并发的的瓶颈在哪里？
+
+1、可能是服务器网络带宽不够
+
+2.可能web线程连接数不够
+
+3.可能数据库连接查询上不去。
+
+根据不同的情况，解决思路也不同。
+</code></pre><p>像第一种情况可以增加网络带宽，DNS域名解析分发多台服务器。</p>
+<p>负载均衡，前置代理服务器nginx、apache等等</p>
+<p>数据库查询优化，读写分离，分表等等</p>
+<p>   最后复制一些在高并发下面需要常常需要处理的内容:</p>
+<p>尽量使用缓存，包括用户缓存，信息缓存等，多花点内存来做缓存，可以大量减少与数据库的交互，提高性能。</p>
+<p>用jprofiler等工具找出性能瓶颈，减少额外的开销。</p>
+<p>优化数据库查询语句，减少直接使用hibernate等工具的直接生成语句（仅耗时较长的查询做优化）。</p>
+<p>优化数据库结构，多做索引，提高查询效率。</p>
+<p>统计的功能尽量做缓存，或按每天一统计或定时统计相关报表，避免需要时进行统计的功能。</p>
+<p>能使用静态页面的地方尽量使用，减少容器的解析（尽量将动态内容生成静态html来显示）。</p>
+<p>解决以上问题后，使用服务器集群来解决单台的瓶颈问题。</p>
+<pre><code>5、轮询。服务端怎么给客户端主动发送消息
+</code></pre><p>异常处理<br>    java中异常分为两类，异常和错误<br>    error是编译和系统的错误，是不能捕获的<br>    exception可以捕获的，程序可以处理的异常<br>    异常的分类<br>        1、运行时异常<br>            运行异常类对应于编译错误，它是指Java程序在运行时产生的由解释器引发的各种异常。运行异常可能出现在任何地方，且出现频率很高，因此为了避免巨大的系统资源开销，编译器不对异常进行检查。所以Java语言中的运行异常不一定被捕获。出现运行错误往往表示代码有错误，如：算数异常（如被0除）、下标异常（如数组越界）等。<br>        2、非运行时异常<br>            又称为可检测异常。Java编译器利用分析方法或构造方法中可能产生的结果来检测Java程序中是否含有检测异常的处理程序，对于每个可能的可检测异常，方法或构造方法的throws子句必须列出该异常对应的类。在Java的标准包java.lang java.util 和 java.net 中定义的异常都是非运行异常</p>
+<pre><code>常见的异常
+ 下表越界异常、非法转换异常、ClassNotFoundException等
+</code></pre><p>5、    Struts工作原理<br>———————————–按照Struts工作原理图地说：<br>1.客户端发出一个指向servlet容器的请求；<br>2.请求会经过StrutsPrepareAndExecuteFilter过滤器；<br>3.过滤器和请求将访问struts2的底层框架结构。在web容器启动时，struts2框架会自动加载配置文件里相关参数，并转换成相应的类。<br>如：ConfigurationManager、ActionMapper和ObjectFactory。ConfigurationManager 存有配置文件的一些基本信息，ActionMapper存有action的配置信息。在请求过程中所有的对象（Action，Results，Interceptors，等）都是通过ObjectFactory来创建的。过滤器会通过询问ActionMapper类来查找请求中需要用到的Action。<br>4.如果找到需要调用的Action，过滤器会把请求的处理交给ActionProxy。ActionProxy为Action的代理对象。ActionProxy通过ConfigurationManager询问框架的配置文件，找到需要调用的Action类。<br>5.ActionProxy创建一个ActionInvocation的实例。ActionInvocation在ActionProxy层之下，它表示了Action的执行状态,或者说它控制的Action的执行步骤。它持有Action实例和所有的Interceptor。<br>6.ActionInvocation实例使用命名模式来调用，1. ActionInvocation初始化时，根据配置，加载Action相关的所有Interceptor。2. 通过ActionInvocation.invoke方法调用Action实现时，执行Interceptor。在调用Action的过程前后，涉及到相关拦截器(intercepetor)的调用。</p>
+<ol>
+<li>一旦Action执行完毕，ActionInvocation负责根据struts.xml中的配置找到对应的返回结果。</li>
+</ol>
+<p>———————————通俗地说：<br>?发送http请求<br>?Web服务器(tomcat/weblogic…)<br>?执行struts核心过滤器StrutsPrepareAndExecuteFilter<br>?加载struts配置文件中配置信息，找到对应的Action类并实例化<br>?执行各类拦截器和Action中对应方法<br>?配置文件中找到返回结果<br>?转发到具体页面或其它操作</p>
+<p>6、    Struts有什么优缺点<br>优点:</p>
+<pre><code>1. 实现MVC模式，结构清晰；
+2. 丰富的struts的标记库，利用好能大大提高开发效率；
+3. 全局结果与声明式异常；
+4. 可使用OGNL进行参数传递
+5. 各个类方便使用的拦截器
+</code></pre><p> 缺点: </p>
+<pre><code>1. 转到表现层时，需要配置结果页面；页面多了比较繁杂；
+2. 对Servlet的依赖性过强
+    3. struts标签稍微比el表达式繁重
+</code></pre><p>7、    为何使用Spring<br>Spring是一个轻量级的控制反转（IoC）、面向切面（AOP）、面向接口、事务管理、包容促进其它框架；使系统中用到的其它框架耦合程度大大降低，拓展性强、简单易用好管理。</p>
+<p>8、    spring在项目中如何充当粘合剂<br>1、在项目中利用spring的IOC(控制反转或依赖注入),明确地定义组件接口(如UserDAO)，开发者可以独立开发各个组件, 然后根据组件间的依赖关系组装(UserAction依赖于UserService,UserService依赖于UserDAO)运行，很好的把Struts(Action)和hibernate(DAO的实现)结合起来；<br>2、spring的事务管理把hibernate对数据库的操作进行了事务配置</p>
+<p>9、    描述在系统中如何使用了Spring的事务控制<br>Spring事务包括编程式事务和声明式事务。在系统中使用了声明式的事务管理是用Spring的AOP来实现的；配置了只读事务和回滚事务（传播行为为REQUIRED）当出现错误后进行回滚操作。在项目中通过aop切入事务到serivce层，这样做能使一次业务逻辑操作如果包括几个数据库操作都控制在一个事务中。</p>
+<p>10、    Hibernate工作原理及为什么要用<br>原理： 1.读取并解析配置文件 2.读取并解析映射信息，创建SessionFactory 3.打开Session 4.创建事务Transation 5.持久化操作 6.提交事务 7.关闭Session 8.关闭SesstionFactory<br>为什么要用： 1. 对JDBC访问数据库的代码做了封装，大大简化了数据访问层繁琐的重复性代码。 2. Hibernate是一个基于JDBC的主流持久化框架，是一个优秀的ORM实现。他很大程度的简化DAO层的编码工作 3. hibernate使用Java反射机制，而不是字节码增强程序来实现透明性。 4. hibernate的性能非常好，因为它是个轻量级框架。映射的灵活性很出色。它支持各种关系数据库，从一对一到多对多的各种复杂关系。</p>
+<p>11、    Hibernate在系统中使用的优化策略<br>Hibernate 对数据的缓存包括两个级：一级缓存，在Session的级别上进行，主要是对象缓存，以其id为键保存对象，在Session的生命期间存在；二级缓存， 在SessionFactory的级别上进行，有对象缓存和查询缓存，查询缓存以查询条件为键保存查询结果，在SessionFactory的生命期间存 在。默认地，Hibernate只启用一级缓存。</p>
+<p>关于这个问题答系统使用了Hibernate的二级缓存就好。</p>
+<p>12、    列举你在开发中常用的Struts标签<br>property、iterator、if、date、form、a、url、textfiled、textarea、select、radio、checkboxlist、hidden、param</p>
+<p>13、    Jquery异步获取数据的方式有几种？有何区别？<br>1、load 载入远程 HTML 文件代码并插入至 DOM 中<br>2、get<br>3、post<br>4、ajax<br>5、getJSON<br>6、getScript 通过 GET 方式请求载入并执行一个 JavaScript 文件</p>
+<p>14、    简述UML并说明你使用Rose常于什么情况，画什么图？<br>Unified Modeling Language (UML) 统一建模语言；用于在软件开发各个阶段中用图形的方式描述流程和功能需求；IBM Rational Rose是uml建模工具之一比较多的在需求阶段，常用于画用例图、类图、时序图。</p>
+<p>15、    请简述导入导出的工具类；并说明你导出过的最大数据量<br>POI（合并单元格对象和背景色的应用）</p>
+<p>16、    统计图的实现方式<br>Fusioncharts 图表采用SVG（可缩放矢量图形）实现，无需Flash；跨终端</p>
+<p>17、    易告知信息推送方式；如何实现？<br>在后台填写推送信息和推送名单后，系统将自动推送；后台EE开发人员只实现定时的调用由客户端开发人员写的接口推送信息。</p>
+<p>18、    简述调查问卷的制作<br>不在你填写的开发功能内的；只需要描述下功能。可以制定调查题目和提供单选和多选两种类型的选项；并可对调查结果进行统计。</p>
+<p>19、    系统的并发量如何？如何解决大并发量的请求？<br>系统并发量不大；但有在应用服务器中间件Weblogic上做负载均衡的配置。</p>
+<p>20、    项目中遇到问题如何解决？<br>自行解决——网络搜索——团队讨论解决</p>
+</class></hibernate-mapping>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+
+  
     <article id="post-ArvinWoo-Start" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -446,7 +885,7 @@
 <h2 id="关于收费"><a href="#关于收费" class="headerlink" title="关于收费"></a>关于收费</h2><p><strong>马克飞象</strong>为新用户提供 10 天的试用期，试用期过后需要<a href="maxiang.info/vip.html">续费</a>才能继续使用。未购买或者未及时续费，将不能同步新的笔记。之前保存过的笔记依然可以编辑。</p>
 <h2 id="反馈与建议"><a href="#反馈与建议" class="headerlink" title="反馈与建议"></a>反馈与建议</h2><ul>
 <li>微博：<a href="http://weibo.com/u/2788354117" target="_blank" rel="external">@马克飞象</a>，<a href="http://weibo.com/ggock" title="开发者个人账号" target="_blank" rel="external">@GGock</a></li>
-<li>邮箱：<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#104;&#117;&#115;&#x74;&#x67;&#x6f;&#99;&#x6b;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;">&#104;&#117;&#115;&#x74;&#x67;&#x6f;&#99;&#x6b;&#64;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a></li>
+<li>邮箱：<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#104;&#x75;&#115;&#x74;&#x67;&#111;&#x63;&#x6b;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;">&#104;&#x75;&#115;&#x74;&#x67;&#111;&#x63;&#x6b;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#x6f;&#109;</a></li>
 </ul>
 <hr>
 <p>感谢阅读这份帮助文档。请点击右上角，绑定印象笔记账号，开启全新的记录与分享体验吧。</p>
